@@ -22,8 +22,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          forge install OpenZeppelin/openzeppelin-contracts --no-git
-          forge install foundry-rs/forge-std --no-git
+          rm -rf lib/openzeppelin-contracts lib/forge-std
+          forge install OpenZeppelin/openzeppelin-contracts --no-git --no-commit
+          forge install foundry-rs/forge-std --no-git --no-commit
 
       - name: Build
         run: forge build --sizes
