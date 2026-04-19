@@ -1,0 +1,48 @@
+[profile.default]
+src     = "src"
+out     = "out"
+libs    = ["lib"]
+remappings = [
+    "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/"
+]
+
+solc_version   = "0.8.24"
+optimizer      = true
+optimizer_runs = 200
+via_ir         = false
+
+# Gas reporting
+gas_reports = ["NFTMarketplace"]
+
+# Verbosity: 0 = quiet, 1-5 = more verbose
+verbosity = 2
+
+# Fuzz configuration
+[profile.default.fuzz]
+runs             = 256
+max_test_rejects = 65536
+seed             = "0x1"
+
+# CI profile — more thorough
+[profile.ci]
+verbosity = 3
+
+[profile.ci.fuzz]
+runs             = 1000
+max_test_rejects = 65536
+
+# Coverage profile
+[profile.coverage]
+src = "src"
+
+[fmt]
+line_length              = 100
+tab_width                = 4
+bracket_spacing          = true
+int_types                = "long"
+multiline_func_header    = "all"
+quote_style              = "double"
+number_underscore        = "thousands"
+override_spacing         = true
+wrap_comments            = true
+ignore                   = ["src/MockERC20.sol"]
