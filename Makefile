@@ -8,7 +8,6 @@
 
 DEFAULT_ANVIL_KEY  := 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
 SEPOLIA_RPC_URL    ?= $(shell grep SEPOLIA_RPC_URL .env 2>/dev/null | cut -d '=' -f2)
-PRIVATE_KEY        ?= $(shell grep PRIVATE_KEY     .env 2>/dev/null | cut -d '=' -f2)
 ETHERSCAN_API_KEY  ?= $(shell grep ETHERSCAN_API_KEY .env 2>/dev/null | cut -d '=' -f2)
 
 # ── Core ────────────────────────────────────────────────────────────────────
@@ -73,11 +72,11 @@ deploy-sepolia:
 	@echo "Deploying to Sepolia..."
 	forge script script/DeployNFTMarketplace.s.sol \
 		--rpc-url $(SEPOLIA_RPC_URL) \
-		--private-key $(PRIVATE_KEY) \
+		--account $(ACCOUNT) \
 		--broadcast \
 		--verify \
 		--etherscan-api-key $(ETHERSCAN_API_KEY) \
-		-vvvv
+		--slow -vvvv
 
 # ── Utilities ───────────────────────────────────────────────────────────────
 
@@ -89,3 +88,11 @@ lint:
 
 anvil:
 	anvil --block-time 1
+
+# ── Wallet ────────────────────────────────────────────────────────
+
+wallet-import:
+	cast wallet import $(ACCOUNT) --interactive
+
+wallet-list:
+	cast wallet list

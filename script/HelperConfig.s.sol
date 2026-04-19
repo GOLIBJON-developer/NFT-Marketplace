@@ -76,7 +76,7 @@ contract HelperConfig is Script {
         return NetworkConfig({
             usdc:         SEPOLIA_USDC,
             usdt:         SEPOLIA_USDT,
-            feeRecipient: 0x000000000000000000000000000000000000dEaD, // replace with deployer
+            feeRecipient: 0xe354ad36eDF11836C38EB8aD33911067D1D94dC4, // replace with deployer
             name:         "NFT Marketplace Sepolia",
             symbol:       "NFTMS"
         });

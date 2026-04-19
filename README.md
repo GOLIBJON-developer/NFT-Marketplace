@@ -1,3 +1,6 @@
+Deployed and verified conract address 0x340C12a94DD8BB553E2259884079B99afc132b8a
+https://sepolia.etherscan.io/address/0x340c12a94dd8bb553e2259884079b99afc132b8a
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
