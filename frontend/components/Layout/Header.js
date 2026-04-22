@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 import {
   FiBell,
   FiSun,
@@ -37,7 +38,7 @@ export default function Header({ title, subtitle }) {
       document.documentElement.classList.add("dark");
     }
   }, []);
-  
+
   useEffect(() => {
     if (router.query.search) {
       setHeaderSearch(router.query.search);
