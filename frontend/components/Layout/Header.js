@@ -121,8 +121,19 @@ export default function Header({ title, subtitle }) {
                   value={headerSearch}
                   onChange={(e) => setHeaderSearch(e.target.value)}
                   onKeyDown={handleSearch}
-                  className="w-full pl-12 pr-6 py-3.5 bg-gray-50/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm transition-all duration-300 hover:bg-gray-100/80 dark:hover:bg-gray-700/50"
+                  className="w-full pl-12 pr-10 py-3.5 bg-gray-50/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm transition-all duration-300 hover:bg-gray-100/80 dark:hover:bg-gray-700/50"
                 />
+                {headerSearch && (
+                  <button
+                    onClick={() => {
+                      setHeaderSearch("");
+                      router.push("/dashboard");
+                    }}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 z-10"
+                  >
+                    <FiX className="w-4 h-4" />
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -168,6 +179,7 @@ export default function Header({ title, subtitle }) {
         </div>
 
         {/* Mobile Search Bar */}
+        {/* Mobile Search Bar */}
         <div className="lg:hidden mt-4">
           <div className="relative group">
             <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
@@ -177,8 +189,19 @@ export default function Header({ title, subtitle }) {
               value={headerSearch}
               onChange={(e) => setHeaderSearch(e.target.value)}
               onKeyDown={handleSearch}
-              className="w-full pl-12 pr-6 py-3 bg-gray-50/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm transition-all duration-300"
+              className="w-full pl-12 pr-10 py-3 bg-gray-50/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm transition-all duration-300"
             />
+            {headerSearch && (
+              <button
+                onClick={() => {
+                  setHeaderSearch("");
+                  router.push("/dashboard");
+                }}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              >
+                <FiX className="w-4 h-4" />
+              </button>
+            )}
           </div>
         </div>
       </header>

@@ -83,7 +83,22 @@ export default function Marketplace() {
         getTotalStats(publicClient),
       ]);
 
-      setMarketItems(items);
+      const itemsWithMetadata = await Promise.all(
+      items.map(async (item) => {
+        try {
+          if (item.tokenURI) {
+            const { fetchMetadataFromIPFS } = await import("../lib/ipfs/pinata");
+            const metadata = await fetchMetadataFromIPFS(item.tokenURI);
+            return { ...item, metadata };
+          }
+          return { ...item, metadata: null };
+        } catch {
+          return { ...item, metadata: null };
+        }
+      })
+    );
+
+      setMarketItems(itemsWithMetadata);
       setStats(marketStats);
     } catch (error) {
       console.error("Error loading marketplace:", error);
@@ -247,9 +262,11 @@ export default function Marketplace() {
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
         return (
-          item.tokenId.includes(searchQuery) ||
+          item.tokenId.toString().includes(query) ||
           item.seller.toLowerCase().includes(query) ||
-          item.owner.toLowerCase().includes(query)
+          (item.metadata?.name || "").toLowerCase().includes(query) ||
+          (item.metadata?.description || "").toLowerCase().includes(query) ||
+          (item.metadata?.collection || "").toLowerCase().includes(query)
         );
       }
 
