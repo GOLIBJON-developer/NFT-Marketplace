@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAccount, usePublicClient, useWalletClient } from "wagmi";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import {
   FiTrendingUp,
@@ -41,6 +42,7 @@ export default function Marketplace() {
   const { address, isConnected } = useAccount();
   const publicClient = usePublicClient();
   const { data: walletClient } = useWalletClient();
+  const router = useRouter();
 
   // Add these state variables to your marketplace component
   const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -65,6 +67,11 @@ export default function Marketplace() {
       loadMarketplace();
     }
   }, [publicClient]);
+  useEffect(() => {
+    if (router.query.search) {
+      setSearchQuery(decodeURIComponent(router.query.search));
+    }
+  }, [router.query.search]);
 
   const loadMarketplace = async (showRefreshing = false) => {
     try {

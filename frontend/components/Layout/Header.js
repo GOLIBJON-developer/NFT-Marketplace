@@ -22,6 +22,8 @@ export default function Header({ title, subtitle }) {
   const [isDark, setIsDark] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const router = useRouter();
+  const [headerSearch, setHeaderSearch] = useState("");
 
   useEffect(() => {
     // Check for saved theme preference or default to light mode
@@ -35,6 +37,14 @@ export default function Header({ title, subtitle }) {
       document.documentElement.classList.add("dark");
     }
   }, []);
+  
+  useEffect(() => {
+    if (router.query.search) {
+      setHeaderSearch(router.query.search);
+    } else {
+      setHeaderSearch("");
+    }
+  }, [router.query.search]);
 
   const toggleTheme = () => {
     setIsDark(!isDark);
@@ -44,6 +54,17 @@ export default function Header({ title, subtitle }) {
     } else {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
+    }
+  };
+
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      const q = headerSearch.trim();
+      if (q) {
+        router.push(`/dashboard?search=${encodeURIComponent(q)}`);
+      } else {
+        router.push("/dashboard");
+      }
     }
   };
 
@@ -96,6 +117,9 @@ export default function Header({ title, subtitle }) {
                 <input
                   type="text"
                   placeholder="Search NFTs, collections, creators..."
+                  value={headerSearch}
+                  onChange={(e) => setHeaderSearch(e.target.value)}
+                  onKeyDown={handleSearch}
                   className="w-full pl-12 pr-6 py-3.5 bg-gray-50/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm transition-all duration-300 hover:bg-gray-100/80 dark:hover:bg-gray-700/50"
                 />
               </div>
@@ -149,6 +173,9 @@ export default function Header({ title, subtitle }) {
             <input
               type="text"
               placeholder="Search NFTs, collections..."
+              value={headerSearch}
+              onChange={(e) => setHeaderSearch(e.target.value)}
+              onKeyDown={handleSearch}
               className="w-full pl-12 pr-6 py-3 bg-gray-50/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm transition-all duration-300"
             />
           </div>
